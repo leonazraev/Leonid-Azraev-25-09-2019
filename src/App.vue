@@ -10,6 +10,12 @@ import navigationBar from './components/Header.vue'
 export default {
   components:{
     navigationBar
+  },
+  created(){
+      
+  },
+  beforeCreate(){
+    this.$store.dispatch('setUserLocationByDefault');
   }
 }
 </script>
