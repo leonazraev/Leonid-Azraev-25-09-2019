@@ -3,6 +3,7 @@ import newyork from '../resources/newyork'
 import jerusalem from '../resources/Jerusalem.js'
 import munich from '../resources/munich.js'
 import telavivweather from '../resources/telavivweather'
+import fivelastdays from '../resources/fivefaysmunich.js'
 const state = {
   defaultLocation: null,
   cityDetails: {
@@ -11,7 +12,8 @@ const state = {
     city: '',
     tempC: '',
     tempF: '',
-    WeatherText: ''
+    WeatherText: '',
+    lastFiveDays: [],
 
   },
   gpURL: 'http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=girsYVPga63NrUmnAGYfhj2OGbPtUT3T&q=',
@@ -28,6 +30,9 @@ const getters = {
   gpURL: state => {
     return state.gpURL;
   },
+  lastFiveDays: state =>{
+    return state.cityDetails.lastFiveDays;
+  }
 }
 const actions = {
   setUserLocationByDefault: contex => {
@@ -80,6 +85,7 @@ const actions = {
         contex.state.cityDetails.key = munich[0].Key;
         contex.state.cityDetails.regionID = munich[0].Country.ID;
         contex.dispatch('getWeather')
+        contex.dispatch('getLastFiveDays');
       }
 
 
@@ -104,6 +110,15 @@ const actions = {
     contex.state.cityDetails.tempC = telavivweather[0].Temperature.Metric.Value;
     contex.state.cityDetails.tempF = telavivweather[0].Temperature.Imperial.Value;
     contex.state.cityDetails.WeatherText = telavivweather[0].WeatherText;
+  },
+  getLastFiveDays: contex =>{
+    let lastDaysArrayAPI = fivelastdays.DailyForecasts;
+    let Days = ['Sun', 'Mon' , 'Tue' ,'Wed','Thu'];
+    for(let i=0;i<lastDaysArrayAPI.length;i++)
+    { 
+        const day = {Day: Days[i] , Temperature: lastDaysArrayAPI[i].Temperature.Maximum.Value};
+        contex.state.cityDetails.lastFiveDays.push(day);
+    }
   }
 
 }
