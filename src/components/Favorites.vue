@@ -1,7 +1,7 @@
 <template>
   <b-container fluid class="w-75 h-100">
     <br />
-    <b-card-group deck>
+    <b-card-group deck class="text-center">
       <b-card
         v-for="(day,index) in getFavorites"
         :key="index"
@@ -32,6 +32,20 @@ export default {
 };
 </script>
 <style  scoped>
+.b-card-group .b-card {
+  max-width: 25%;
+}
+.card-deck .card {
+  max-width: calc(25% - 30px);
+}
+@media (min-width: 20em) {
+  .card-deck > .card {
+    width: 25%;
+    flex-wrap: wrap;
+    flex: initial;
+    margin: 10px;
+  }
+}
 .headerSize {
   font-size: 30px;
   font-weight: bold;

@@ -9,7 +9,7 @@
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
           <b-navbar-brand>
-            <b-form-checkbox v-model="CelFar" @input="changeCF" switch size="lg" class="pad">Cel/Far</b-form-checkbox>
+            <b-form-checkbox v-model="CelFar" @input="changeCF" switch size="lg" class="pad">Celsius/Fahrenheit</b-form-checkbox>
           </b-navbar-brand>
           <b-navbar-brand>
             <b-form-checkbox  v-model="Theme" @input="changeTheme" switch size="lg" class="pad">Light/Dark Theme</b-form-checkbox>

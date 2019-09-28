@@ -37,7 +37,6 @@ export default {
         return this.search;
       },
       set(evt) {
-        console.log(evt);
         this.$store.dispatch('setAutoComplete',evt);
         this.search = evt;
       }

@@ -11,8 +11,8 @@ const state = {
     fiveForecast: [],
 
   },
-  gpURL: 'http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=Z7JVNAivjdUnvPlYy2RG5zWWukRpTXdv&q=',
-  autoCompSearchURL: 'http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=Z7JVNAivjdUnvPlYy2RG5zWWukRpTXdv&q=',
+  gpURL: 'http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=9Vbxk2Z53ra5LVQsOmk9KlcwGeTbJWGy&q=',
+  autoCompSearchURL: 'http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=9Vbxk2Z53ra5LVQsOmk9KlcwGeTbJWGy&q=',
   conditionURL: 'http://dataservice.accuweather.com/currentconditions/v1/',
   fiveForecastURL: 'http://dataservice.accuweather.com/forecasts/v1/daily/5day/',
   searchField: '',
@@ -67,27 +67,9 @@ const actions = {
             
 
   },
-  userSearch: (contex, userLocation) => {
-    if (userLocation !== '' && userLocation !== undefined) {
-      const fullURL = contex.state.autoCompSearchURL + userLocation + '&language=en';
-      Vue.axios.get(fullURL)
-      .then(response =>{
-        const data = response.data;
-        contex.state.cityDetails.city = data[0].LocalizedName;
-        contex.state.cityDetails.key = data[0].Key;
-        contex.state.cityDetails.regionID = data[0].Country.ID;
-        contex.dispatch('getWeather');
-        contex.dispatch('getFiveForecast');
-      })
-      .catch( err=>{
-        Vue.toasted.show(err.message,contex.getters.toastOptions);
-      })
-      
-    }
-  },
   getWeather: contex => {
     const key = contex.state.cityDetails.key;
-    const fullURL = contex.state.conditionURL + key + "?apikey=Z7JVNAivjdUnvPlYy2RG5zWWukRpTXdv&language=en&details=true";
+    const fullURL = contex.state.conditionURL + key + "?apikey=9Vbxk2Z53ra5LVQsOmk9KlcwGeTbJWGy&language=en&details=true";
     Vue.axios.get(fullURL)
     .then(response =>{
       const data = response.data;
@@ -102,7 +84,7 @@ const actions = {
   getFiveForecast: contex =>{
 
     const key = contex.state.cityDetails.key;
-    const fullURL = contex.state.fiveForecastURL + key + "?apikey=Z7JVNAivjdUnvPlYy2RG5zWWukRpTXdv&language=en&details=true&metric=true";
+    const fullURL = contex.state.fiveForecastURL + key + "?apikey=9Vbxk2Z53ra5LVQsOmk9KlcwGeTbJWGy&language=en&details=true&metric=true";
     let Days = ['Sun', 'Mon' , 'Tue' ,'Wed','Thu'];
     Vue.axios.get(fullURL)
     .then(response =>{
