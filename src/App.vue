@@ -15,7 +15,7 @@ export default {
       
   },
   beforeCreate(){
-    this.$store.dispatch('setUserLocationByDefault');
+    //this.$store.dispatch('setUserLocationByDefault');
   }
 }
 </script>

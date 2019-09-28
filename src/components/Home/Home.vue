@@ -5,15 +5,16 @@
       <b-col cols="0">
         <i class="fas fa-search" style="padding-top: 10px;"></i>
       </b-col>
-      <b-col >
+      <b-col>
         <b-form-input
           list="input-list"
           v-model="searchedValue"
-          id="search"
+          id="input-with-list"
           placeholder="Search"
+          @keypress="executeSearch($event)"
         ></b-form-input>
 
-        <b-form-datalist id="input-list"></b-form-datalist>
+        <b-form-datalist id="input-list" :options = "autoCompleteOptions"></b-form-datalist>
       </b-col>
     </b-row>
     <hr />
@@ -25,14 +26,30 @@
 import FiveDays from "./FiveDays";
 import WeatherBody from "./WeatherBody.vue";
 export default {
+  data() {
+    return {
+      search: ""
+    };
+  },
   computed: {
     searchedValue: {
-      get(evt) {
-        return '';
+      get() {
+        return this.search;
       },
       set(evt) {
-        this.$store.dispatch("userSearch", evt);
+        console.log(evt);
+        this.$store.dispatch('setAutoComplete',evt);
+        this.search = evt;
       }
+    },
+    autoCompleteOptions(){
+      return this.$store.getters.getAutoCompleteTxT.filter((v,i) => this.$store.getters.getAutoCompleteTxT.indexOf(v) === i);
+    }
+  },
+  methods: {
+    executeSearch(e) {
+      if(e.charCode === 13)
+        this.$store.dispatch("userSearch", this.search);
     }
   },
   components: {

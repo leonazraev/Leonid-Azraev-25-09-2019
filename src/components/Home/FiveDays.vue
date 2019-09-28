@@ -2,7 +2,7 @@
   <b-container fluid class="w-75 h-100">
     <b-card-group deck>
       <b-card
-        v-for="(day,index) in LastFiveDays"
+        v-for="(day,index) in fiveForecast"
         lg="8"
         :key="index"
         bg-variant="light"
@@ -23,8 +23,8 @@ export default {
     return {};
   },
   computed: {
-    LastFiveDays() {
-      return this.$store.getters.lastFiveDays;
+    fiveForecast() {
+      return this.$store.getters.fiveForecast;
     }
   }
 };
