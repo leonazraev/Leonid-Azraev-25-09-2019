@@ -12,7 +12,8 @@
         </b-row>
         <b-row>
           <b-col>
-            <h3>{{showTempC}}</h3>
+            <h3 v-if="celFar === 'C'">{{showTempC}}</h3>
+            <h3 v-else>{{showTempF}}</h3>
           </b-col>
         </b-row>
       </b-col>
@@ -94,6 +95,9 @@ export default {
       }
       else this.$store.dispatch("setWarningText", this.add);
       return this.$store.getters.warningText;
+    },
+    celFar(){
+      return this.$store.getters.celFar;
     }
   },
   created() {}

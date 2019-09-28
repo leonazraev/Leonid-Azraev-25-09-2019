@@ -8,8 +8,8 @@
         bg-variant="light"
         :header="day.Day"
         class="text-center headerSize"
-        header-bg-variant="primary"
-        border-variant="primary"
+        :header-bg-variant="colorTheme"
+        :border-variant="colorTheme"
         header-text-variant="white"
       >
         <b-card-text class="bodysize">{{day.Temperature}} °C</b-card-text>
@@ -25,6 +25,9 @@ export default {
   computed: {
     fiveForecast() {
       return this.$store.getters.fiveForecast;
+    },
+    colorTheme() {
+      return this.$store.getters.themeChange;
     }
   }
 };

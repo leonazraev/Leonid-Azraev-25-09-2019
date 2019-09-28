@@ -11,8 +11,8 @@ const state = {
     fiveForecast: [],
 
   },
-  gpURL: 'http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=girsYVPga63NrUmnAGYfhj2OGbPtUT3T&q=',
-  autoCompSearchURL: 'http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=girsYVPga63NrUmnAGYfhj2OGbPtUT3T&q=',
+  gpURL: 'http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=Z7JVNAivjdUnvPlYy2RG5zWWukRpTXdv&q=',
+  autoCompSearchURL: 'http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=Z7JVNAivjdUnvPlYy2RG5zWWukRpTXdv&q=',
   conditionURL: 'http://dataservice.accuweather.com/currentconditions/v1/',
   fiveForecastURL: 'http://dataservice.accuweather.com/forecasts/v1/daily/5day/',
   searchField: '',
@@ -50,7 +50,6 @@ const actions = {
     const lat = contex.state.defaultLocation.coords.latitude;
     const lon = contex.state.defaultLocation.coords.longitude;
     const fullURL = contex.getters.gpURL + lat + '%2C' + lon + '&language=en&toplevel=true';
-    console.log(fullURL)
 
           Vue.axios.get(fullURL)
             .then(response => {
@@ -62,7 +61,8 @@ const actions = {
               contex.dispatch('getFiveForecast');
             })
             .catch(err => {
-              
+              Vue.toasted.show(err.message,contex.getters.toastOptions);
+
             })
             
 
@@ -80,14 +80,14 @@ const actions = {
         contex.dispatch('getFiveForecast');
       })
       .catch( err=>{
-        
+        Vue.toasted.show(err.message,contex.getters.toastOptions);
       })
       
     }
   },
   getWeather: contex => {
     const key = contex.state.cityDetails.key;
-    const fullURL = contex.state.conditionURL + key + "?apikey=girsYVPga63NrUmnAGYfhj2OGbPtUT3T&language=en&details=true";
+    const fullURL = contex.state.conditionURL + key + "?apikey=Z7JVNAivjdUnvPlYy2RG5zWWukRpTXdv&language=en&details=true";
     Vue.axios.get(fullURL)
     .then(response =>{
       const data = response.data;
@@ -96,13 +96,13 @@ const actions = {
       contex.state.cityDetails.WeatherText = data[0].WeatherText;
     })
     .catch( err=>{
-      
+      Vue.toasted.show(err.message,contex.getters.toastOptions);
     })
   },
   getFiveForecast: contex =>{
+
     const key = contex.state.cityDetails.key;
-    const fullURL = contex.state.fiveForecastURL + key + "?apikey=girsYVPga63NrUmnAGYfhj2OGbPtUT3T&language=en&details=true&metric=true";
-    console.log(fullURL)
+    const fullURL = contex.state.fiveForecastURL + key + "?apikey=Z7JVNAivjdUnvPlYy2RG5zWWukRpTXdv&language=en&details=true&metric=true";
     let Days = ['Sun', 'Mon' , 'Tue' ,'Wed','Thu'];
     Vue.axios.get(fullURL)
     .then(response =>{
@@ -111,20 +111,21 @@ const actions = {
       for(let i=0;i<data.length;i++)
       { 
           const day = {Day: Days[i] , Temperature: data[i].Temperature.Maximum.Value};
+          
           days.push(day);
       }
       contex.state.cityDetails.fiveForecast = days;
+      console.log(contex.state.fiveForecast)
+   
     })
     .catch( err=>{
-      
-    })
+      Vue.toasted.show(err.message,contex.getters.toastOptions);    })
   },
   setAutoComplete: (contex,search) =>{
 
     if (search !== '' && search !== undefined) {
 
       const found = contex.state.autoCompleteKey.find(e=> e.cityNameDesc === search);
-      console.log(found)
       if((typeof found) !== 'undefined')
       {
         contex.state.cityDetails.city = found.cityName;
@@ -151,7 +152,8 @@ const actions = {
         }
       })
       .catch( err=>{
-        
+        Vue.toasted.show(err.message,contex.getters.toastOptions);
+
       })
     }
       

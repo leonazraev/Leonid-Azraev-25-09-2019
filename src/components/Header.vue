@@ -1,25 +1,55 @@
 <template>
-    <div>
-  <b-navbar toggleable="lg" type="dark" variant="primary">
-    <b-navbar-brand disabled>Herolo Weather Task</b-navbar-brand>
+  <div>
+    <b-navbar toggleable="lg" type="dark" :variant="colorTheme">
+      <b-navbar-brand disabled>Herolo Weather Task</b-navbar-brand>
 
-    <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
+      <b-navbar-toggle target="nav-collapse"></b-navbar-toggle>
 
-    <b-collapse id="nav-collapse" is-nav>
-    <!-- Right aligned nav items -->
-      <b-navbar-nav class="ml-auto">
-         <b-navbar-brand  href="/#/" right ><b-button variant="primary">Home</b-button></b-navbar-brand>
-        <b-navbar-brand  href="/#/Favorites" right ><b-button variant="primary">Favorites</b-button></b-navbar-brand>
-      </b-navbar-nav>
-    </b-collapse>
-  </b-navbar>
-</div>
+      <b-collapse id="nav-collapse" is-nav>
+        <!-- Right aligned nav items -->
+        <b-navbar-nav class="ml-auto">
+          <b-navbar-brand>
+            <b-form-checkbox v-model="CelFar" @input="changeCF" switch size="lg" class="pad">Cel/Far</b-form-checkbox>
+          </b-navbar-brand>
+          <b-navbar-brand>
+            <b-form-checkbox  v-model="Theme" @input="changeTheme" switch size="lg" class="pad">Light/Dark Theme</b-form-checkbox>
+          </b-navbar-brand>
+          <b-navbar-brand href="/#/" right>
+            <b-button :variant="colorTheme">Home</b-button>
+          </b-navbar-brand>
+          <b-navbar-brand href="/#/Favorites" right>
+            <b-button :variant="colorTheme">Favorites</b-button>
+          </b-navbar-brand>
+        </b-navbar-nav>
+      </b-collapse>
+    </b-navbar>
+  </div>
 </template>
+<script>
+export default {
+  data() {
+    return {
+      Theme: true,
+      CelFar: true
+    };
+  },
+  methods: {
+    changeTheme() {
+      this.$store.dispatch("setThemeChange");
+    },
+    changeCF() {
+      this.$store.dispatch("setCelFar");
+    }
+  },
+  computed: {
+    colorTheme() {
+      return this.$store.getters.themeChange;
+    }
+  }
+};
+</script>
 <style scoped>
-.border {
-    border-width:5px;
-    padding: 5px;
-     border-bottom-right-radius: 50px 20px;
-     border-bottom-left-radius: 50px 20px;
+.pad {
+  padding: 3px;
 }
 </style>
