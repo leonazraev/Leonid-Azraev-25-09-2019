@@ -115,7 +115,7 @@ const actions = {
           days.push(day);
       }
       contex.state.cityDetails.fiveForecast = days;
-      console.log(contex.state.fiveForecast)
+
    
     })
     .catch( err=>{
