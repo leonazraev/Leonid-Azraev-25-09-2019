@@ -9,10 +9,22 @@
         <!-- Right aligned nav items -->
         <b-navbar-nav class="ml-auto">
           <b-navbar-brand>
-            <b-form-checkbox v-model="CelFar" @input="changeCF" switch size="lg" class="pad">Celsius/Fahrenheit</b-form-checkbox>
+            <b-form-checkbox
+              v-model="CelFar"
+              @input="changeCF"
+              switch
+              size="lg"
+              class="pad"
+            >Celsius/Fahrenheit</b-form-checkbox>
           </b-navbar-brand>
           <b-navbar-brand>
-            <b-form-checkbox  v-model="Theme" @input="changeTheme" switch size="lg" class="pad">Light/Dark Theme</b-form-checkbox>
+            <b-form-checkbox
+              v-model="Theme"
+              @input="changeTheme"
+              switch
+              size="lg"
+              class="pad"
+            >Light/Dark Theme</b-form-checkbox>
           </b-navbar-brand>
           <b-navbar-brand href="/#/" right>
             <b-button :variant="colorTheme">Home</b-button>
@@ -26,6 +38,8 @@
   </div>
 </template>
 <script>
+import { mapGetters } from "vuex";
+import { mapActions} from "vuex";
 export default {
   data() {
     return {
@@ -34,17 +48,15 @@ export default {
     };
   },
   methods: {
-    changeTheme() {
-      this.$store.dispatch("setThemeChange");
-    },
-    changeCF() {
-      this.$store.dispatch("setCelFar");
-    }
+    ...mapActions({
+      changeTheme: "setThemeChange",
+      changeCF: "setCelFar"
+    }),
   },
   computed: {
-    colorTheme() {
-      return this.$store.getters.themeChange;
-    }
+    ...mapGetters({
+      colorTheme: "themeChange"
+    })
   }
 };
 </script>

@@ -20,14 +20,13 @@
   </b-container>
 </template>
 <script>
+import {mapGetters} from 'vuex';
 export default {
   computed: {
-    getFavorites() {
-      return this.$store.getters.favorites;
-    },
-    colorTheme() {
-      return this.$store.getters.themeChange;
-    }
+    ...mapGetters({
+      getFavorites:"favorites",
+      colorTheme: "themeChange"
+    }),
   }
 };
 </script>

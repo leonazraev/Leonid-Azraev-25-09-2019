@@ -18,17 +18,16 @@
   </b-container>
 </template>
 <script>
+import {mapGetters} from 'vuex';
 export default {
   data() {
     return {};
   },
   computed: {
-    fiveForecast() {
-      return this.$store.getters.fiveForecast;
-    },
-    colorTheme() {
-      return this.$store.getters.themeChange;
-    }
+    ...mapGetters({
+      fiveForecast: "fiveForecast",
+      colorTheme:"themeChange"
+    }),
   }
 };
 </script>

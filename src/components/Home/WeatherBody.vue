@@ -31,6 +31,8 @@
   </b-container>
 </template>
 <script>
+import {mapGetters} from 'vuex';
+import {mapActions} from 'vuex';
 export default {
   data() {
     return {
@@ -41,19 +43,35 @@ export default {
     };
   },
   methods: {
+    ...mapActions([
+      "setWarningStyle",
+      "setWarningText",
+      "addFavorite",
+      "removeFavorite",
+
+      ]),
     addRemoveFav() {
       if (this.warningStyle === this.light) {
-        this.$store.dispatch("setWarningStyle", this.warning);
-        this.$store.dispatch("setWarningText", this.remove);
-        this.$store.dispatch("addFavorite", this.cityDetails);
+        this.setWarningStyle(this.warning);
+        this.setWarningText(this.remove);
+        this.addFavorite(this.cityDetails);
       } else {
-        this.$store.dispatch("setWarningStyle", this.light);
-        this.$store.dispatch("setWarningText", this.add);
-        this.$store.dispatch("removeFavorite", this.cityDetails);
+        this.setWarningStyle(this.light);
+        this.setWarningText(this.add);
+        this.removeFavorite(this.cityDetails);
       }
     }
   },
   computed: {
+    ...mapGetters({
+      celFar : "celFar" , 
+      getWrningText: "warningText",
+      getSarningStyle: "warningStyle",
+      getCityDetails: "cityDetails",
+      favorites: "favorites",
+
+
+      }),
     showPhoto() {
       if (this.cityDetails.regionID !== "")
         return (
@@ -64,10 +82,9 @@ export default {
       else return "";
     },
     getFavorites() {
-      return this.$store.getters.favorites;
+      return this.favorites;
     },
     showCity() {
-      //this.cityDetails = this.$store.getters.cityDetails;
       return this.cityDetails.city;
     },
     showTempC() {
@@ -80,25 +97,22 @@ export default {
       return this.cityDetails.WeatherText;
     },
     cityDetails() {
-      return this.$store.getters.cityDetails;
+      return this.getCityDetails;
     },
     warningStyle() {
       if (this.getFavorites.find(e => e.city === this.cityDetails.city)) {
-        this.$store.dispatch("setWarningStyle", this.warning);
+        this.setWarningStyle(this.warning);
       }
-      else this.$store.dispatch("setWarningStyle", this.light);
-      return this.$store.getters.warningStyle;
+      else this.setWarningStyle(this.light);
+      return this.getSarningStyle;
     },
     warinigText() {
       if (this.getFavorites.find(e => e.city === this.cityDetails.city)) {
-              this.$store.dispatch("setWarningText", this.remove);
+              this.setWarningText(this.remove);
       }
-      else this.$store.dispatch("setWarningText", this.add);
-      return this.$store.getters.warningText;
+      else this.setWarningText(this.add);
+      return this.getWrningText;
     },
-    celFar(){
-      return this.$store.getters.celFar;
-    }
   },
   created() {}
 };
@@ -121,22 +135,5 @@ export default {
 .weatherTXT {
   font-size: 150px;
 }
-.text {
-  position: absolute;
-  top: 50%;
-  right: 50%;
-  margin-top: 100px;
-  transform: translate(50%, -50%);
-  text-transform: uppercase;
-  font-family: verdana;
-  font-size: 12em;
-  font-weight: 700;
-  color: #f5f5f5;
-  text-shadow: 1px 1px 1px #919191, 1px 2px 1px #919191, 1px 3px 1px #919191,
-    1px 4px 1px #919191, 1px 5px 1px #919191, 1px 6px 1px #919191,
-    1px 7px 1px #919191, 1px 8px 1px #919191, 1px 9px 1px #919191,
-    1px 10px 1px #919191, 1px 18px 6px rgba(16, 16, 16, 0.4),
-    1px 22px 10px rgba(16, 16, 16, 0.2), 1px 25px 35px rgba(16, 16, 16, 0.2),
-    1px 30px 60px rgba(16, 16, 16, 0.4);
-}
+
 </style>
