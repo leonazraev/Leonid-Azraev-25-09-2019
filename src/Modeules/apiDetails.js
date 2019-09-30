@@ -1,8 +1,8 @@
 const state = {
-    gpURL: 'http://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=',
-    autoCompSearchURL: 'http://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=',
-    conditionURL: 'http://dataservice.accuweather.com/currentconditions/v1/',
-    fiveForecastURL: 'http://dataservice.accuweather.com/forecasts/v1/daily/5day/',
+    gpURL: 'https://dataservice.accuweather.com/locations/v1/cities/geoposition/search?apikey=',
+    autoCompSearchURL: 'https://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=',
+    conditionURL: 'https://dataservice.accuweather.com/currentconditions/v1/',
+    fiveForecastURL: 'https://dataservice.accuweather.com/forecasts/v1/daily/5day/',
     apikey: 'girsYVPga63NrUmnAGYfhj2OGbPtUT3T',
 }
 const getters = {
