@@ -36,8 +36,9 @@ export default {
         this.search = "";
         return;
       } else {
-        this.setAutoComplete(evt.target.value);
         this.search = evt.target.value;
+        this.setAutoComplete(this.search);
+
       }
     }
   },

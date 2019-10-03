@@ -11,7 +11,6 @@ const state = {
     fiveForecast: [],
 
   },
-  searchField: '',
   autoCompleteTxT: [],
   autoCompleteKey:[]
 
@@ -28,6 +27,9 @@ const getters = {
   },
   getAutoCompleteTxT: state =>{
     return state.autoCompleteTxT;
+  },
+  autoCompleteKey: state =>{
+    return state.autoCompleteKey;
   }
 }
 const actions = {
@@ -57,8 +59,6 @@ const actions = {
               Vue.toasted.show(err.message,contex.getters.toastOptions);
 
             })
-            
-
   },
   getWeather: contex => {
     const key = contex.state.cityDetails.key;
