@@ -3,7 +3,7 @@ const state = {
     autoCompSearchURL: 'https://dataservice.accuweather.com/locations/v1/cities/autocomplete?apikey=',
     conditionURL: 'https://dataservice.accuweather.com/currentconditions/v1/',
     fiveForecastURL: 'https://dataservice.accuweather.com/forecasts/v1/daily/5day/',
-    apikey: 'girsYVPga63NrUmnAGYfhj2OGbPtUT3T',
+    apikey: 'ouWNiN2XvmKLdXdpDzdOAeXmUBfQGAPw',
 }
 const getters = {
     gpURL: state => {

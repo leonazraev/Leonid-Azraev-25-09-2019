@@ -8,7 +8,7 @@
         <b-form-input
           list="input-list"
           :value="search"
-          @keydown="checkTheLetters($event)"
+          @keyup="checkTheLetters($event)"
           id="input-with-list"
           placeholder="Search"
         ></b-form-input>
@@ -31,8 +31,10 @@ export default {
     ...mapActions(["setAutoComplete"]),
     checkTheLetters(evt) {
       let re = /[^a-zA-Z]+$/gi;
+      let temp = evt.target.value;
       evt.target.value = evt.target.value.replace(re, "");
-      if (evt.target.value === "") {
+      if (evt.target.value === "" && temp != '') {
+         this.$toasted.show("Please insert english letters only",{position: 'top-center',duration: 3000,type: 'error'});
         this.search = "";
         return;
       } else {
