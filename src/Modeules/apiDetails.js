@@ -4,6 +4,7 @@ const state = {
     conditionURL: 'https://dataservice.accuweather.com/currentconditions/v1/',
     fiveForecastURL: 'https://dataservice.accuweather.com/forecasts/v1/daily/5day/',
     apikey: 'ouWNiN2XvmKLdXdpDzdOAeXmUBfQGAPw',
+    //
 }
 const getters = {
     gpURL: state => {
